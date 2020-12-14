@@ -23,6 +23,15 @@ resource "google_compute_firewall" "default" {
  }
 }
 
+resource "google_compute_address" "rancher-ip-address" {
+  name = "rancher-static-ip"
+}
+
+resource "google_compute_address" "node-ip-address" {
+  count = var.node_count
+  name = "node-static-ip-${count.index}"
+}
+
 // Rancher server
 resource "rancher2_bootstrap" "admin" {
   provider = rancher2.bootstrap
@@ -46,7 +55,7 @@ resource "google_compute_instance" "rancher_server" {
    network = "default"
 
    access_config {
-     // Include this section to give the VM an external ip address
+     nat_ip = google_compute_address.rancher-ip-address.address
    }
  }
 
@@ -95,7 +104,7 @@ resource "google_compute_instance" "rancher_node" {
   machine_type = "e2-medium"
   zone         = "europe-west3-a"
   allow_stopping_for_update = true
-  count = 3
+  count = var.node_count
 
   boot_disk {
    initialize_params {
@@ -107,6 +116,7 @@ resource "google_compute_instance" "rancher_node" {
    network = "default"
 
    access_config {
+     nat_ip = google_compute_address.node-ip-address[count.index].address
    }
  }
 
@@ -118,6 +128,7 @@ resource "google_compute_instance" "rancher_node" {
         docker_version   = var.docker_version
         username         = var.service_user
         register_command = rancher2_cluster.elastic.cluster_registration_token.0.node_command
+        public_ip        = google_compute_address.node-ip-address[count.index].address
       }
     )
   }

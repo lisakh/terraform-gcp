@@ -9,3 +9,9 @@ variable "docker_version" {
   description = "Docker version to install on nodes"
   default     = "19.03"
 }
+
+variable "node_count" {
+  type        = string
+  description = "Number of nodes"
+  default     = "3"
+}

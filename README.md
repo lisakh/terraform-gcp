@@ -1,2 +1,3 @@
 # terraform-gcp
-Terrafotm and Google Cloud Platform
+Terraform and Google Cloud Platform
+
