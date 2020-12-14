@@ -1,6 +1,6 @@
 # Google compute
 provider "google" {
-  project     = "rancher-297317"
+  project     = "hr-jan-liska"
   credentials = file("/home/jliska/.config/gcloud/application_default_credentials.json")
   region      = "europe-west3"
   zone        = "europe-west3-a"
