@@ -1,15 +1,18 @@
 # terraform-gcp
 Terraform and Google Cloud Platform
 
-https://35.198.68.69/
+### Links
+https://35.198.68.69/ - Rancher, Kubernetes cluster management cluster
 
+http://kibana.elastic.34.107.73.167.xip.io/ - Kibana UI connected to elasticsearch
 
-kibana.elastic.34.107.73.167.xip.io/
+http://elastic.elastic.34.107.73.167.xip.io/ - elastic search rest endpoint
 
+https://35.198.68.69/k8s/clusters/c-q444s/api/v1/namespaces/cattle-prometheus/services/http:access-grafana:80/proxy/d/icjpCppik/cluster?orgId=1&refresh=1m&from=now-12h&to=now - Grafana UI, cluster overview
 
-
-http://elastic.elastic.34.107.73.167.xip.io/
-
+### Connection
+###### SSH
+Pivate key to connect to the nodes
 
 -----BEGIN RSA PRIVATE KEY-----
 MIIEowIBAAKCAQEAlC6SAdEJxdfXvsXnd4h0EGMuxphwKFLXCAmEYGMB+GGXuU8S
@@ -39,9 +42,11 @@ V7Tt8jcq8hTrxRkclwSWVWXa5oPCMGUyF+ThhwxOpPQ2xFE0c+WamGF7uiQmrDPv
 CnC4uEHTuYzA7Z9hwW92YSMFZFgt0wIw6bJDhg3VOnBjU3PEJJEE
 -----END RSA PRIVATE KEY-----
 
+Public key to connect to the nods
 
 ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCULpIB0QnF19e+xed3iHQQYy7GmHAoUtcICYRgYwH4YZe5TxJpbRhTV13o4dShw2seXyNTH9HlYIqruDQRwyS680lyqR1st+c/7SWrlB4/dSLPKpNLJ4QlVs3kjDtdVgkshQv6uI7jpEiq0/TTJDjfuyD8t2polzLWy1hqWHwCVgcj5Ha0tILvbcNvfFB2CUOSd4UhdhzK4enCiR84p0e2YGnH4KBZwx/seXo55LYHxniTTJGUnASVK9c/vSuSajC5RsOneNa5fgUngW/ZyctknaphjIMScRrTL+/a4kSNmQTQ44MIcQy3x07nnXSwcJBSt1oTpB1W8ds0XuSI52AB
 
+###### Kube config
 apiVersion: v1
 kind: Config
 clusters:
@@ -74,7 +79,7 @@ contexts:
 
 current-context: "elastic"
 
-
+### Elastic installation
 
 helm3 upgrade elasticsearch elastic/elasticsearch -n elastic --install --set persistence.enabled=false --set resources.requests.cpu=250m --set resources.requests.memory=512m
 
